@@ -1,0 +1,80 @@
+<html>
+  <head>
+   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+   <script type="text/javascript">
+      google.charts.load('current', {'packages':['gauge']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Temperature', 80],
+          ['Humidity', 55]
+        ]);
+		
+		var data2 = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Wind (mph)', 10],
+          ['Wind Gust', 10]
+        ]);
+		
+		var databar = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Barometer', 30]
+        ]);
+
+        var options = {
+          width: 480, height: 200,
+          minorTicks: 5
+        };
+
+        var options2 = {
+          width: 480, height: 200,
+          minorTicks: 5
+        };
+		
+		var optionsbar = {
+          width: 480, height: 200,
+          minorTicks: 5,
+		  min: 28,
+		  max: 32
+        };
+
+        var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+		var chart2 = new google.visualization.Gauge(document.getElementById('chart_div2'));
+		var chart3 = new google.visualization.Gauge(document.getElementById('chart_div3'));
+
+        chart.draw(data, options);
+		chart2.draw(data2, options2);
+		chart3.draw(databar, optionsbar);
+
+        setInterval(function() {
+          data.setValue(0, 1, 40 + Math.round(60 * Math.random()));
+          chart.draw(data, options);
+        }, 13000);
+        setInterval(function() {
+          data.setValue(1, 1, 40 + Math.round(60 * Math.random()));
+          chart.draw(data, options);
+        }, 5000);
+        setInterval(function() {
+          data2.setValue(0, 1, Math.round(60 * Math.random()));
+          chart2.draw(data2, options2);
+        }, 3000);
+        setInterval(function() {
+          data2.setValue(1, 1, Math.round(60 * Math.random()));
+          char2t.draw(data2, options2);
+        }, 4000);
+		setInterval(function() {
+          databar.setValue(0, 1, 29 + (2 * Math.random()));
+          chart3.draw(databar, optionsbar);
+        }, 8000);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 480px; height: 200px;"></div>
+	<div id="chart_div2" style="width: 480px; height: 200px;"></div>
+	<div id="chart_div3" style="width: 480px; height: 200px;"></div>
+  </body>
+</html>
